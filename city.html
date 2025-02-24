@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <title>Game</title>
+
+    <h2>City game by siddharth</h2>
+
+    <form>
+        We need some JavaScript in a script element.
+
+        <label for="inputcity">Where is the city?</label>
+        <!-- Changed input type to text for visibility during testing -->
+        <input type="password" id="inputcity" name="where in the world" value="Paris"> <br>
+
+        <label for="guesscity">Guess the city:</label>
+        <input type="text" id="guesscity" name="form1_nick" autofocus> <br>
+
+        <input type="button" onclick="checkCity()" value="Check the Guess">
+    </form>
+
+    <p id="result">This text will be replaced </p>
+
+    <script>
+        let oops = 0;  // Global variable for wrong attempts
+        let found = 0; // Global variable for correct attempts
+
+        function checkCity() {
+            // Get the values from the form
+            let inputCity = document.getElementById("inputcity").value;
+            let guessCity = document.getElementById("guesscity").value;
+            
+            console.log("Input city:", inputCity);  // Debug log for input city
+            console.log("Guess city:", guessCity);  // Debug log for guess city
+            
+            // Compare the input city and guess city
+            if (inputCity === guessCity) {
+                found++; // Increase found count if correct
+                alert("Gotcha");
+            } else {
+                oops++; // Increase oops count if incorrect
+                alert("Awe");
+            }
+
+            // Update the result display with counts
+            let resultElement = document.getElementById("result");
+            resultElement.innerHTML = "Oops: " + oops + " | Found: " + found;
+        }
+    </script>
+
+</body>
+</html>
