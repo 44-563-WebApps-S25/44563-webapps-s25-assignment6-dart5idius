@@ -21,9 +21,14 @@
 
     <p id="result">This text will be replaced </p>
 
+    <div id="image-container">
+        <img id="petImage" src="maltese.jpg" alt="PetImage" width="150" height="150" onclick="updatePic()">
+      </div>
+
     <script>
         let oops = 0;  // Global variable for wrong attempts
         let found = 0; // Global variable for correct attempts
+        let usePic = 1; // Global variable
 
         function checkCity() {
             // Get the values from the form
@@ -46,7 +51,34 @@
             let resultElement = document.getElementById("result");
             resultElement.innerHTML = "Oops: " + oops + " | Found: " + found;
         }
+            function updatePic() {
+  const imgElement = document.getElementById("petImage");
+
+  switch (usePic) {
+    case 1:
+      imgElement.src = "maltese.jpg";
+      usePic = 2;
+      break;
+    case 2:
+      imgElement.src = "poodle.jpg";
+      usePic = 3;
+      break;
+    case 3:
+      imgElement.src = "malamute.jpg";
+      usePic = 1;
+      break;
+    default:
+      console.log("Invalid usePic value");
+  }
+
+
+
+
+}
     </script>
+
+
+
 
 </body>
 </html>
