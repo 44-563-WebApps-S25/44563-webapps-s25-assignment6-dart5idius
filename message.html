@@ -21,11 +21,33 @@
     <!-- Results will be displayed here -->
     <p id="result">This text will be replaced</p>
 
+    <form>
+        <input type="radio" onclick="chooseOp()" value="times" id="product" name="operation"  >
+        <label for="product">product</label></br>
+      
+        <input type="radio" onclick="chooseOp()" id="sum" name="operation" 
+           value="add">
+        <label for="sum">Sum</label></br>
+      
+        <input type="radio" onclick="chooseOp()" id="mod" name="operation"   
+           value="mod">
+        <label for="mod">Mod</label></br>
+        
+        <p id="result2">This text will be replaced </p>
+       
+      </form>
+
+
+
+
+
+
     <script>
+        let basicPrice, breakAt;
         function amounts() {
             // Get input values
-            const basicPrice = parseFloat(document.getElementById("basicprice").value);
-            const breakAt = parseInt(document.getElementById("breakAt").value);
+             basicPrice = parseFloat(document.getElementById("basicprice").value);
+             breakAt = parseInt(document.getElementById("breakAt").value);
             const discount = parseFloat(document.getElementById("discountelement").value);
 
             // Initialize results string
@@ -50,7 +72,53 @@
 
             // Display results
             document.getElementById("result").innerHTML = "Totals are: " + myResults;
+
+            console.log("basicPrice:", basicPrice);
+            console.log("breakAt:", breakAt);
+
+            chooseOp(basicPrice, breakAt);
+
         }
+        
+
+    function chooseOp(basicPrice, breakAt) {
+        let opresult =0;
+        /*
+        prod = document.getElementById("product").value;
+        sum = document.getElementById("sum").value;
+        mod = document.getElementById("mod").value; */
+        
+        
+     
+
+    
+    const selectedOperation = document.querySelector('input[name="operation"]:checked');
+
+    // Perform the selected operation
+    if (selectedOperation) {
+        switch (selectedOperation.value) {
+            case "times":
+                opresult = basicPrice * breakAt;
+                break;
+            case "add":
+                opresult = basicPrice + breakAt;
+                break;
+            case "mod":
+                opresult = basicPrice % breakAt;
+                break;
+            default:
+                opresult = 0; // Default case to handle unexpected values
+        }
+    }
+
+    // Display the result
+    document.getElementById("result2").innerHTML = "Operation results are: " + opresult;
+}
+
+        
+
+
+    
     </script>
 
 </body>
