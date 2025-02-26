@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <title>Message Cost Calculator</title>
+<body>
+
+    <h2>Siddharth Message Cost</h2>
+
+    <!-- Input elements -->
+    <label for="basicprice">Enter cost per letter:</label>
+    <input type="number" id="basicprice" value="0.50" step="0.01"><br>
+
+    <label for="breakAt">Enter the length needed for the discount:</label>
+    <input type="number" id="breakAt" value="9"><br>
+
+    <label for="discountelement">Enter the discount percent:</label>
+    <input type="number" id="discountelement" value="10"><br>
+
+    <!-- Button to calculate -->
+    <input type="button" onclick="amounts()" value="Show total">
+
+    <!-- Results will be displayed here -->
+    <p id="result">This text will be replaced</p>
+
+    <script>
+        function amounts() {
+            // Get input values
+            const basicPrice = parseFloat(document.getElementById("basicprice").value);
+            const breakAt = parseInt(document.getElementById("breakAt").value);
+            const discount = parseFloat(document.getElementById("discountelement").value);
+
+            // Initialize results string
+            let myResults = "";
+
+            // Loop from breakAt-3 to breakAt+3
+            for (let size = breakAt - 3; size <= breakAt + 3; size++) {
+                let totalCost = 0;
+
+                // Calculate cost for each letter
+                for (let i = 1; i <= size; i++) {
+                    if (i < breakAt) {
+                        totalCost += basicPrice; // Full price for letters below breakAt
+                    } else {
+                        totalCost += basicPrice * (1 - discount / 100); // Discounted price for letters at or above breakAt
+                    }
+                }
+
+                // Append result to myResults
+                myResults += `size ${size} costs ${totalCost.toFixed(2)}; `;
+            }
+
+            // Display results
+            document.getElementById("result").innerHTML = "Totals are: " + myResults;
+        }
+    </script>
+
+</body>
+</html>
