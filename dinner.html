@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+ <title>dinner</title>
+<body>
+
+<h2>Siddharth plans dinner</h2>
+
+<input type="checkbox" id="choice1" name="choice" value="True">
+<label for="choice1"> Serve wine</label><br>
+<input type="checkbox" id="choice2" name="choice" value="True">
+<label for="choice2"> Eat Outside</label><br>
+<input type="checkbox" id="choice3" name="choice" value="False">
+<label for="choice3"> Light candles</label><br>    
+
+<input type="button" onclick="choices()" value="Dinner choices">
+
+<p id="result">dinner choices will be displayed here</p>
+
+
+<form>
+    <label for="mainDish">Enter main dish:</label>
+    <input type="text" id="mainDish" value="Butter Chicken"><br>
+
+    <label for="dessert">Enter dessert:</label>
+    <input type="text" id="dessert"><br>
+
+    <!-- Button to update dinner details -->
+    <input type="button" onclick="updateDinner()" value="Update the dinner">
+</form>
+
+<!-- Results for main dish and dessert will be displayed here -->
+<p id="dinnerDetails">Dinner details will be displayed here.</p>
+
+
+
+<script> 
+   let my_dinner = {};
+
+   function choices() {
+   my_dinner = {};
+
+// Set properties based on checkbox states
+my_dinner.wine = document.getElementById("choice1").checked;
+my_dinner.outside = document.getElementById("choice2").checked;
+my_dinner.candles = document.getElementById("choice3").checked;
+
+// Display my_dinner object
+document.getElementById("result").innerHTML = JSON.stringify(my_dinner, null, 2);
+}
+
+function updateDinner() {
+           
+ const mainDish = document.getElementById("mainDish").value;
+ const dessert = document.getElementById("dessert").value;
+
+            
+ my_dinner.main = mainDish;
+ my_dinner.dessert = dessert;
+
+            
+document.getElementById("dinnerDetails").innerHTML = JSON.stringify(my_dinner, null, 2);
+}
+
+</script>
+
+</body>
+</html> 
