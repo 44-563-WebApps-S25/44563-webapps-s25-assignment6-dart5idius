@@ -1,67 +1,92 @@
 <!DOCTYPE html>
-<html>
- <title>dinner</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinner Plans</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
+        body {
+            padding: 20px;
+        }
+        .form-check {
+            margin-bottom: 10px;
+        }
+        #result, #dinnerDetails {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
 <body>
+    <div class="container">
+        <h2 class="text-center mb-4">Siddharth Plans Dinner</h2>
 
-<h2>Siddharth plans dinner</h2>
+       
+        <form class="mb-4">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="choice1" name="choice" value="True">
+                <label class="form-check-label" for="choice1">Serve wine</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="choice2" name="choice" value="True">
+                <label class="form-check-label" for="choice2">Eat Outside</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="choice3" name="choice" value="False">
+                <label class="form-check-label" for="choice3">Light candles</label>
+            </div>
+            <button type="button" class="btn btn-primary mt-3" onclick="choices()">Dinner Choices</button>
+        </form>
 
-<input type="checkbox" id="choice1" name="choice" value="True">
-<label for="choice1"> Serve wine</label><br>
-<input type="checkbox" id="choice2" name="choice" value="True">
-<label for="choice2"> Eat Outside</label><br>
-<input type="checkbox" id="choice3" name="choice" value="False">
-<label for="choice3"> Light candles</label><br>    
+       
+        <p id="result" class="alert alert-info">Dinner choices will be displayed here.</p>
 
-<input type="button" onclick="choices()" value="Dinner choices">
+     
+        <form class="mb-4">
+            <div class="mb-3">
+                <label for="mainDish" class="form-label">Enter main dish:</label>
+                <input type="text" class="form-control" id="mainDish" value="Butter Chicken">
+            </div>
+            <div class="mb-3">
+                <label for="dessert" class="form-label">Enter dessert:</label>
+                <input type="text" class="form-control" id="dessert">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="updateDinner()">Update the Dinner</button>
+        </form>
 
-<p id="result">dinner choices will be displayed here</p>
+        <!-- Results for Dinner Details -->
+        <p id="dinnerDetails" class="alert alert-success">Dinner details will be displayed here.</p>
+    </div>
 
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<form>
-    <label for="mainDish">Enter main dish:</label>
-    <input type="text" id="mainDish" value="Butter Chicken"><br>
+    <script>
+        let my_dinner = {};
 
-    <label for="dessert">Enter dessert:</label>
-    <input type="text" id="dessert"><br>
+        function choices() {
+            my_dinner = {};
 
-    <!-- Button to update dinner details -->
-    <input type="button" onclick="updateDinner()" value="Update the dinner">
-</form>
+            my_dinner.wine = document.getElementById("choice1").checked;
+            my_dinner.outside = document.getElementById("choice2").checked;
+            my_dinner.candles = document.getElementById("choice3").checked;
 
-<!-- Results for main dish and dessert will be displayed here -->
-<p id="dinnerDetails">Dinner details will be displayed here.</p>
+            document.getElementById("result").innerHTML = JSON.stringify(my_dinner, null, 2);
+        }
 
+        function updateDinner() {
+            const mainDish = document.getElementById("mainDish").value;
+            const dessert = document.getElementById("dessert").value;
 
+            my_dinner.main = mainDish;
+            my_dinner.dessert = dessert;
 
-<script> 
-   let my_dinner = {};
-
-   function choices() {
-   my_dinner = {};
-
-// Set properties based on checkbox states
-my_dinner.wine = document.getElementById("choice1").checked;
-my_dinner.outside = document.getElementById("choice2").checked;
-my_dinner.candles = document.getElementById("choice3").checked;
-
-// Display my_dinner object
-document.getElementById("result").innerHTML = JSON.stringify(my_dinner, null, 2);
-}
-
-function updateDinner() {
-           
- const mainDish = document.getElementById("mainDish").value;
- const dessert = document.getElementById("dessert").value;
-
-            
- my_dinner.main = mainDish;
- my_dinner.dessert = dessert;
-
-            
-document.getElementById("dinnerDetails").innerHTML = JSON.stringify(my_dinner, null, 2);
-}
-
-</script>
-
+            document.getElementById("dinnerDetails").innerHTML = JSON.stringify(my_dinner, null, 2);
+        }
+    </script>
 </body>
-</html> 
+</html>

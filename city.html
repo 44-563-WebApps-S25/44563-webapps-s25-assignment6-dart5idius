@@ -1,84 +1,114 @@
 <!DOCTYPE html>
-<html>
-
-<body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      
+        body {
+            padding: 20px;
+        }
+        #image-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        #petImage {
+            cursor: pointer;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">City Game by Siddharth</h2>
 
-    <h2>City game by siddharth</h2>
+        <!-- Form -->
+        <form class="mb-4">
+            <div class="mb-3">
+                <label for="inputcity" class="form-label">Where is the city?</label>
+                <input type="password" class="form-control" id="inputcity" name="where in the world" value="Paris">
+            </div>
+            <div class="mb-3">
+                <label for="guesscity" class="form-label">Guess the city:</label>
+                <input type="text" class="form-control" id="guesscity" name="form1_nick" autofocus>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="checkCity()">Check the Guess</button>
+        </form>
 
-    <form>
-        We need some JavaScript in a script element.
+        
+        <p id="result" class="alert alert-info">This text will be replaced</p>
+        <p id="result2" class="alert alert-warning"></p>
 
-        <label for="inputcity">Where is the city?</label>
-        <!-- Changed input type to text for visibility during testing -->
-        <input type="password" id="inputcity" name="where in the world" value="Paris"> <br>
+       
+        <div id="image-container">
+            <img id="petImage" src="maltese.jpg" alt="PetImage" width="150" height="150" onclick="updatePic()">
+        </div>
+    </div>
 
-        <label for="guesscity">Guess the city:</label>
-        <input type="text" id="guesscity" name="form1_nick" autofocus> <br>
-
-        <input type="button" onclick="checkCity()" value="Check the Guess">
-    </form>
-
-    <p id="result">This text will be replaced </p>
-
-    <div id="image-container">
-        <img id="petImage" src="maltese.jpg" alt="PetImage" width="150" height="150" onclick="updatePic()">
-      </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        let oops = 0;  // Global variable for wrong attempts
-        let found = 0; // Global variable for correct attempts
-        let usePic = 1; // Global variable
+        let oops = 0;  
+        let found = 0; 
+        let usePic = 1; 
 
         function checkCity() {
-            // Get the values from the form
+           
             let inputCity = document.getElementById("inputcity").value;
             let guessCity = document.getElementById("guesscity").value;
             
-            console.log("Input city:", inputCity);  // Debug log for input city
-            console.log("Guess city:", guessCity);  // Debug log for guess city
+            console.log("Input city:", inputCity);  
+            console.log("Guess city:", guessCity);  
             
-            // Compare the input city and guess city
+            
             if (inputCity === guessCity) {
-                found++; // Increase found count if correct
+                found++; 
                 alert("Gotcha");
             } else {
-                oops++; // Increase oops count if incorrect
+                oops++; 
                 alert("Awe");
             }
 
-            // Update the result display with counts
+           
             let resultElement = document.getElementById("result");
             resultElement.innerHTML = "Oops: " + oops + " | Found: " + found;
+
+            if (oops > 2 * found) {
+                toomanyoops();
+            }
         }
-            function updatePic() {
-  const imgElement = document.getElementById("petImage");
 
-  switch (usePic) {
-    case 1:
-      imgElement.src = "maltese.jpg";
-      usePic = 2;
-      break;
-    case 2:
-      imgElement.src = "poodle.jpg";
-      usePic = 3;
-      break;
-    case 3:
-      imgElement.src = "malamute.jpg";
-      usePic = 1;
-      break;
-    default:
-      console.log("Invalid usePic value");
-  }
+        function updatePic() {
+            const imgElement = document.getElementById("petImage");
 
+            switch (usePic) {
+                case 1:
+                    imgElement.src = "maltese.jpg";
+                    usePic = 2;
+                    break;
+                case 2:
+                    imgElement.src = "poodle.jpg";
+                    usePic = 3;
+                    break;
+                case 3:
+                    imgElement.src = "malamute.jpg";
+                    usePic = 1;
+                    break;
+                default:
+                    console.log("Invalid usePic value");
+            }
+        }
 
-
-
-}
+        function toomanyoops() {
+            let toomanyoops = document.getElementById("result2");
+            toomanyoops.innerHTML = "Sorry, too many wrong guesses.";
+        }
     </script>
-
-
-
-
 </body>
 </html>

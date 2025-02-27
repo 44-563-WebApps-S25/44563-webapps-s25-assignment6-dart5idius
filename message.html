@@ -1,125 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Message Cost Calculator</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        #result, #result2 {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
 <body>
+    <div class="container">
+        <h2 class="text-center mb-4">Siddharth Message Cost</h2>
 
-    <h2>Siddharth Message Cost</h2>
-
-    <!-- Input elements -->
-    <label for="basicprice">Enter cost per letter:</label>
-    <input type="number" id="basicprice" value="0.50" step="0.01"><br>
-
-    <label for="breakAt">Enter the length needed for the discount:</label>
-    <input type="number" id="breakAt" value="9"><br>
-
-    <label for="discountelement">Enter the discount percent:</label>
-    <input type="number" id="discountelement" value="10"><br>
-
-    <!-- Button to calculate -->
-    <input type="button" onclick="amounts()" value="Show total">
-
-    <!-- Results will be displayed here -->
-    <p id="result">This text will be replaced</p>
-
-    <form>
-        <input type="radio" onclick="chooseOp()" value="times" id="product" name="operation"  >
-        <label for="product">product</label></br>
-      
-        <input type="radio" onclick="chooseOp()" id="sum" name="operation" 
-           value="add">
-        <label for="sum">Sum</label></br>
-      
-        <input type="radio" onclick="chooseOp()" id="mod" name="operation"   
-           value="mod">
-        <label for="mod">Mod</label></br>
         
-        <p id="result2">This text will be replaced </p>
+        <form>
+            <div class="form-group">
+                <label for="basicprice">Enter cost per letter:</label>
+                <input type="number" class="form-control" id="basicprice" value="0.50" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="breakAt">Enter the length needed for the discount:</label>
+                <input type="number" class="form-control" id="breakAt" value="9">
+            </div>
+            <div class="form-group">
+                <label for="discountelement">Enter the discount percent:</label>
+                <input type="number" class="form-control" id="discountelement" value="10">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="amounts()">Show total</button>
+        </form>
+
+        
+        <p id="result" class="alert alert-info">This text will be replaced</p>
+
+        
+        <form>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" onclick="chooseOp()" value="times" id="product" name="operation">
+                <label class="form-check-label" for="product">Product</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" onclick="chooseOp()" id="sum" name="operation" value="add">
+                <label class="form-check-label" for="sum">Sum</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" onclick="chooseOp()" id="mod" name="operation" value="mod">
+                <label class="form-check-label" for="mod">Mod</label>
+            </div>
+        </form>
+
        
-      </form>
+        <p id="result2" class="alert alert-success">This text will be replaced</p>
+    </div>
 
-
-
-
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         let basicPrice, breakAt;
+
         function amounts() {
             // Get input values
-             basicPrice = parseFloat(document.getElementById("basicprice").value);
-             breakAt = parseInt(document.getElementById("breakAt").value);
+            basicPrice = parseFloat(document.getElementById("basicprice").value);
+            breakAt = parseInt(document.getElementById("breakAt").value);
             const discount = parseFloat(document.getElementById("discountelement").value);
 
-            // Initialize results string
+           
             let myResults = "";
 
-            // Loop from breakAt-3 to breakAt+3
+            
             for (let size = breakAt - 3; size <= breakAt + 3; size++) {
                 let totalCost = 0;
 
-                // Calculate cost for each letter
+               
                 for (let i = 1; i <= size; i++) {
                     if (i < breakAt) {
-                        totalCost += basicPrice; // Full price for letters below breakAt
+                        totalCost += basicPrice; 
                     } else {
-                        totalCost += basicPrice * (1 - discount / 100); // Discounted price for letters at or above breakAt
+                        totalCost += basicPrice * (1 - discount / 100); 
                     }
                 }
 
-                // Append result to myResults
+               
                 myResults += `size ${size} costs ${totalCost.toFixed(2)}; `;
             }
 
-            // Display results
+           
             document.getElementById("result").innerHTML = "Totals are: " + myResults;
 
             console.log("basicPrice:", basicPrice);
             console.log("breakAt:", breakAt);
 
             chooseOp(basicPrice, breakAt);
-
         }
-        
 
-    function chooseOp(basicPrice, breakAt) {
-        let opresult =0;
-        /*
-        prod = document.getElementById("product").value;
-        sum = document.getElementById("sum").value;
-        mod = document.getElementById("mod").value; */
-        
-        
-     
+        function chooseOp(basicPrice, breakAt) {
+            let opresult = 0;
 
-    
-    const selectedOperation = document.querySelector('input[name="operation"]:checked');
+            
+            const selectedOperation = document.querySelector('input[name="operation"]:checked');
 
-    // Perform the selected operation
-    if (selectedOperation) {
-        switch (selectedOperation.value) {
-            case "times":
-                opresult = basicPrice * breakAt;
-                break;
-            case "add":
-                opresult = basicPrice + breakAt;
-                break;
-            case "mod":
-                opresult = basicPrice % breakAt;
-                break;
-            default:
-                opresult = 0; // Default case to handle unexpected values
+            
+            if (selectedOperation) {
+                switch (selectedOperation.value) {
+                    case "times":
+                        opresult = basicPrice * breakAt;
+                        break;
+                    case "add":
+                        opresult = basicPrice + breakAt;
+                        break;
+                    case "mod":
+                        opresult = basicPrice % breakAt;
+                        break;
+                    default:
+                        opresult = 0; 
+                }
+            }
+
+            
+            document.getElementById("result2").innerHTML = "Operation results are: " + opresult;
         }
-    }
-
-    // Display the result
-    document.getElementById("result2").innerHTML = "Operation results are: " + opresult;
-}
-
-        
-
-
-    
     </script>
-
 </body>
 </html>
